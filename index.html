@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI News Hub - Your Comprehensive Source for AI News &amp; Updates</title>
+    <meta name="description" content="Stay updated with the latest AI news from top sources including TechCrunch, MIT, VentureBeat, The Verge, Wired, and OpenAI.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__brand">
+                    <h1 class="header__logo">AI News Hub</h1>
+                    <p class="header__tagline">Your Comprehensive Source for AI News &amp; Updates</p>
+                </div>
+                
+                <nav class="header__nav">
+                    <ul class="nav__list">
+                        <li><a href="#" class="nav__link nav__link--active">Home</a></li>
+                        <li><a href="#sources" class="nav__link">Sources</a></li>
+                        <li><a href="#categories" class="nav__link">Categories</a></li>
+                        <li><a href="#about" class="nav__link">About</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search articles..." disabled>
+                        <button class="search-btn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <button class="refresh-btn" id="refreshBtn" title="Refresh articles">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                        </svg>
+                    </button>
+                    
+                    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                        <svg class="theme-icon theme-icon--light" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="theme-icon theme-icon--dark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="main__layout">
+                <!-- Content Area -->
+                <div class="main__content">
+                    <!-- Loading State -->
+                    <div class="loading-container" id="loadingContainer">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Fetching latest AI news...</p>
+                    </div>
+                    
+                    <!-- Error State -->
+                    <div class="error-container" id="errorContainer" style="display: none;">
+                        <div class="error-icon">⚠️</div>
+                        <h3>Failed to Load Articles</h3>
+                        <p>There was an error fetching the latest news. Please try refreshing the page.</p>
+                        <button class="btn btn--primary" onclick="location.reload()">Retry</button>
+                    </div>
+                    
+                    <!-- Featured Article -->
+                    <section class="featured-section" id="featuredSection" style="display: none;">
+                        <h2 class="section-title">Featured Article</h2>
+                        <div class="featured-article" id="featuredArticle">
+                            <!-- Featured article will be inserted here -->
+                        </div>
+                    </section>
+                    
+                    <!-- Articles Grid -->
+                    <section class="articles-section" id="articlesSection" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">Latest AI News</h2>
+                            <div class="last-updated" id="lastUpdated">
+                                <span class="update-indicator"></span>
+                                <span class="update-text">Last updated: <span id="updateTime">--</span></span>
+                            </div>
+                        </div>
+                        <div class="articles-grid" id="articlesGrid">
+                            <!-- Articles will be inserted here -->
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <!-- Top Sources Widget -->
+                    <div class="widget">
+                        <h3 class="widget__title">Top Sources</h3>
+                        <div class="sources-list" id="sourcesList">
+                            <!-- Sources will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Categories Widget -->
+                    <div class="widget">
+                        <h3 class="widget__title">Categories</h3>
+                        <div class="categories-list">
+                            <div class="category-tag">AI Research</div>
+                            <div class="category-tag">Industry News</div>
+                            <div class="category-tag">Startups</div>
+                            <div class="category-tag">Ethics &amp; Policy</div>
+                            <div class="category-tag">Machine Learning</div>
+                            <div class="category-tag">Robotics</div>
+                            <div class="category-tag">Natural Language Processing</div>
+                            <div class="category-tag">Computer Vision</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media Widget -->
+                    <div class="widget">
+                        <h3 class="widget__title">Share</h3>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn social-btn--twitter" target="_blank">Twitter</a>
+                            <a href="#" class="social-btn social-btn--linkedin" target="_blank">LinkedIn</a>
+                            <a href="#" class="social-btn social-btn--facebook" target="_blank">Facebook</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h4>About AI News Hub</h4>
+                    <p>AI News Hub aggregates the latest artificial intelligence news from top publications including TechCrunch, MIT News, VentureBeat, The Verge, Wired, and OpenAI. Stay informed with the most recent developments in AI research, industry trends, and breakthrough technologies.</p>
+                </div>
+                
+                <div class="footer__section" id="sources">
+                    <h4>Our Sources</h4>
+                    <ul class="source-links">
+                        <li><a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank">TechCrunch AI</a></li>
+                        <li><a href="https://news.mit.edu/topic/mitartificial-intelligence2" target="_blank">MIT News AI</a></li>
+                        <li><a href="https://venturebeat.com/category/ai/" target="_blank">VentureBeat AI</a></li>
+                        <li><a href="https://theverge.com/ai-artificial-intelligence" target="_blank">The Verge AI</a></li>
+                        <li><a href="https://wired.com/tag/artificial-intelligence/" target="_blank">Wired AI</a></li>
+                        <li><a href="https://openai.com/news/" target="_blank">OpenAI News</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__section">
+                    <h4>Legal</h4>
+                    <p>&copy; 2025 AI News Hub. All rights reserved.</p>
+                    <p>Content aggregated from various news sources. All articles remain property of their respective publishers.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
